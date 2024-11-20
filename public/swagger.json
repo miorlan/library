@@ -1,0 +1,217 @@
+{
+  "swagger": "2.0",
+  "info": {},
+  "paths": {
+    "/song": {
+      "put": {
+        "description": "Обновляет информацию о песне по заданному ID.",
+        "tags": [
+          "Song"
+        ],
+        "summary": "Обновить песню по ID",
+        "operationId": "UpdateSong",
+        "parameters": [
+          {
+            "$ref": "#/definitions/Song",
+            "description": "Данные для обновления песни",
+            "name": "song",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      "post": {
+        "description": "Добавляет новую песню и получает дополнительные данные из внешнего API.",
+        "tags": [
+          "Song"
+        ],
+        "summary": "Добавить новую песню",
+        "operationId": "AddSong",
+        "parameters": [
+          {
+            "$ref": "#/definitions/SongRequest",
+            "description": "Данные новой песни",
+            "name": "song",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "description": "Удаляет песню по заданному ID.",
+        "tags": [
+          "Song"
+        ],
+        "summary": "Удалить песню по ID",
+        "operationId": "DeleteSong",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "ID песни",
+            "name": "id",
+            "in": "query",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/song/text": {
+      "get": {
+        "description": "Возвращает текст песни с опциональной пагинацией.",
+        "tags": [
+          "Song"
+        ],
+        "summary": "Получить текст песни с пагинацией",
+        "operationId": "GetSongText",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "ID песни",
+            "name": "id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "Количество куплетов на странице",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "Смещение для пагинации",
+            "name": "offset",
+            "in": "query"
+          }
+        ]
+      }
+    },
+    "/songs": {
+      "get": {
+        "description": "Возвращает список песен с опциональной пагинацией и фильтрацией.",
+        "tags": [
+          "Song"
+        ],
+        "summary": "Получить песни с пагинацией и фильтрацией",
+        "operationId": "GetSongs",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "Количество песен на странице",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "Смещение для пагинации",
+            "name": "offset",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Название группы",
+            "name": "group",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Название песни",
+            "name": "song",
+            "in": "query"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Song": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "description": "Название Group",
+          "type": "string",
+          "x-go-name": "Group",
+          "example": "Острые Перцы"
+        },
+        "id": {
+          "description": "ID Group",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID",
+          "example": 1
+        },
+        "link": {
+          "description": "Ссылка на песню",
+          "type": "string",
+          "x-go-name": "Link",
+          "example": "www.example.com"
+        },
+        "releaseDate": {
+          "description": "Дата релиза",
+          "type": "string",
+          "x-go-name": "ReleaseDate",
+          "example": "20.10.1999"
+        },
+        "song": {
+          "description": "Название Song",
+          "type": "string",
+          "x-go-name": "Song",
+          "example": "Хочу в сковородку"
+        },
+        "text": {
+          "description": "Text песни",
+          "type": "string",
+          "x-go-name": "Text",
+          "example": "Нарежьте меня и отпустите на масло"
+        }
+      },
+      "x-go-package": "Projects/internal/models"
+    },
+    "SongDetails": {
+      "type": "object",
+      "properties": {
+        "link": {
+          "description": "Ссылка на песню",
+          "type": "string",
+          "x-go-name": "Link",
+          "example": "www.example.com"
+        },
+        "releaseDate": {
+          "description": "Дата релиза",
+          "type": "string",
+          "x-go-name": "ReleaseDate",
+          "example": "20.10.1999"
+        },
+        "text": {
+          "description": "Text песни",
+          "type": "string",
+          "x-go-name": "Text",
+          "example": "Нарежьте меня и отпустите на масло"
+        }
+      },
+      "x-go-package": "Projects/internal/models"
+    },
+    "SongRequest": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "description": "Название Group",
+          "type": "string",
+          "x-go-name": "Group",
+          "example": "Острые Перцы"
+        },
+        "song": {
+          "type": "string",
+          "x-go-name": "Song"
+        }
+      },
+      "x-go-package": "Projects/internal/models"
+    }
+  }
+}
